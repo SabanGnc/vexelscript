@@ -1,13 +1,7 @@
 --[[
-    ██╗   ██╗███████╗██╗  ██╗███████╗██╗     ██╗  ██╗██╗   ██╗██████╗ 
-    ██║   ██║██╔════╝╚██╗██╔╝██╔════╝██║     ██║  ██║██║   ██║██╔══██╗
-    ██║   ██║█████╗   ╚███╔╝ █████╗  ██║     ███████║██║   ██║██████╔╝
-    ╚██╗ ██╔╝██╔══╝   ██╔██╗ ██╔══╝  ██║     ██╔══██║██║   ██║██╔══██╗
-     ╚████╔╝ ███████╗██╔╝ ██╗███████╗███████╗██║  ██║╚██████╔╝██████╔╝
-      ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ 
-    VexelHUB PRO v2.0 — Premium Exploit Hub
+    VexelHUB PRO - Premium Roblox Exploit Hub (Final V1.0)
     Author: VexelHUB / AI
-    Theme: Glassmorphism Dark + Neon Purple & Cyan
+    Theme: Modern Dark Mode with Neon Purple Accents
 ]]
 
 local Players = game:GetService("Players")
@@ -54,37 +48,30 @@ NList.SortOrder = Enum.SortOrder.LayoutOrder
 NList.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NList.Padding = UDim.new(0, 5)
 
--- Color Theme (Premium v2.0 — Glassmorphism Palette)
+-- Color Theme
 local Theme = {
-    Background = Color3.fromRGB(12, 12, 16),
-    Sidebar = Color3.fromRGB(16, 16, 22),
-    Accent = Color3.fromRGB(138, 43, 226),      -- Neon Purple
+    Background = Color3.fromRGB(15, 15, 18),
+    Sidebar = Color3.fromRGB(20, 20, 25),
+    Accent = Color3.fromRGB(138, 43, 226), -- Neon Purple
     AccentHover = Color3.fromRGB(158, 63, 246),
-    Secondary = Color3.fromRGB(0, 180, 255),     -- Neon Cyan/Blue
     Text = Color3.fromRGB(240, 240, 240),
-    TextDark = Color3.fromRGB(100, 100, 115),
-    Element = Color3.fromRGB(22, 22, 28),
-    ElementHover = Color3.fromRGB(32, 32, 40),
-    LogBg = Color3.fromRGB(8, 8, 10),
-    Glass = 0.12 -- Glassmorphism base transparency
+    TextDark = Color3.fromRGB(120, 120, 130),
+    Element = Color3.fromRGB(25, 25, 30),
+    ElementHover = Color3.fromRGB(35, 35, 42),
+    LogBg = Color3.fromRGB(10, 10, 12)
 }
-
--- Cleanup Infrastructure (Script termination güvenliği)
-local _allConnections = {}
-local _allDrawings = {}
-local _espCache = {}
 
 -- Globals & Shared State
 local SharedState = {
     SelectedTarget = nil,
-    WalkSpeed = 16, JumpPower = 50, FlyActive = false, StealthFly = false, FlySpeed = 50, NoStamina = false,
+    WalkSpeed = 16, JumpPower = 50, FlyActive = false, StealthFly = false, FlySpeed = 50,
     CFrameSpeedActive = false, CFrameSpeed = 2, AutoBhop = false,
     NoclipActive = false, InfJumpActive = false, Freecam = false, FreecamSpeed = 1,
     ClickTP = false, Spider = false, Btools = false, TweenTP = false, AntiFallDamage = false,
     LoopFollow = false, FollowDistance = 3, FollowHeight = 1, FlingActive = false,
     VehFlyActive = false, VehFlySpeed = 50, VehSpeedActive = false, VehSpeed = 100, VehNoclip = false,
     VehNitroActive = false, VehNitroPower = 50,
-    ESP = { Name = false, Health = false, Chams = false, Box = false, HealthBar = false, Distance = false, Skeleton = false }, Tracers = false, TracerOrigin = "Bottom",
+    ESP = { Name = false, Health = false, Chams = false }, Tracers = false, TracerOrigin = "Bottom",
     Spinbot = false, SpinSpeed = 20, HitboxExpander = false, HitboxSize = 5, FOV = 70,
     AutoClicker = false, ClickCPS = 10, Invisible = false, ChatSpy = false, Notifications = false, ShowHUD = false,
     Aimbot = false, ShowFOV = false, FOVRadius = 150, AimSmoothness = 5, TargetPart = "Head", AimKey = "Right Click",
@@ -199,86 +186,41 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- UI Construction (Premium v2.0 — Glassmorphism)
+-- UI Construction
 
-local MainFrame = Create("Frame", { Parent = VexelGui, Size = UDim2.new(0, 700, 0, 480), Position = UDim2.new(0.5, -350, 0.5, -240), BackgroundColor3 = Theme.Background, BackgroundTransparency = Theme.Glass, BorderSizePixel = 0, ClipsDescendants = true, Visible = false })
-Create("UICorner", { CornerRadius = UDim.new(0, 12), Parent = MainFrame })
-Create("UIStroke", { Parent = MainFrame, Color = Theme.Accent, Thickness = 1.5, Transparency = 0.2 })
+local MainFrame = Create("Frame", { Parent = VexelGui, Size = UDim2.new(0, 700, 0, 480), Position = UDim2.new(0.5, -350, 0.5, -240), BackgroundColor3 = Theme.Background, BorderSizePixel = 0, ClipsDescendants = true, Visible = false })
+Create("UICorner", { CornerRadius = UDim.new(0, 8), Parent = MainFrame })
+Create("UIStroke", { Parent = MainFrame, Color = Theme.Accent, Thickness = 1.5, Transparency = 0.3 })
 
--- ★ Premium Login System (Glassmorphism + Blur + Animated Glow)
-local loginBlur = Instance.new("BlurEffect")
-loginBlur.Size = 24
-loginBlur.Parent = Lighting
+local LoginFrame = Create("Frame", { Parent = VexelGui, Size = UDim2.new(0, 350, 0, 200), Position = UDim2.new(0.5, -175, 0.5, -100), BackgroundColor3 = Theme.Background, BorderSizePixel = 0, ClipsDescendants = true })
+Create("UICorner", { CornerRadius = UDim.new(0, 8), Parent = LoginFrame })
+Create("UIStroke", { Parent = LoginFrame, Color = Theme.Accent, Thickness = 1.5, Transparency = 0.3 })
 
-local LoginFrame = Create("Frame", { Parent = VexelGui, Size = UDim2.new(0, 400, 0, 280), Position = UDim2.new(0.5, -200, 0.5, -140), BackgroundColor3 = Color3.fromRGB(18, 18, 24), BackgroundTransparency = 0.05, BorderSizePixel = 0, ClipsDescendants = true })
-Create("UICorner", { CornerRadius = UDim.new(0, 14), Parent = LoginFrame })
-local loginStroke = Create("UIStroke", { Parent = LoginFrame, Color = Theme.Accent, Thickness = 2, Transparency = 0 })
+local LoginTitle = Create("TextLabel", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 40), Position = UDim2.new(0, 0, 0, 15), BackgroundTransparency = 1, Text = "VexelHUB PRO", TextColor3 = Theme.Accent, Font = Enum.Font.GothamBold, TextSize = 22 })
+local LoginSub = Create("TextLabel", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 20), Position = UDim2.new(0, 0, 0, 45), BackgroundTransparency = 1, Text = "Premium Authentication", TextColor3 = Theme.TextDark, Font = Enum.Font.GothamMedium, TextSize = 14 })
 
--- Animasyonlu UIStroke parıltısı
-task.spawn(function()
-    while LoginFrame and LoginFrame.Parent do
-        Tween(loginStroke, {Color = Theme.Secondary, Transparency = 0.5}, 1.8, Enum.EasingStyle.Sine)
-        task.wait(1.8)
-        Tween(loginStroke, {Color = Theme.Accent, Transparency = 0}, 1.8, Enum.EasingStyle.Sine)
-        task.wait(1.8)
-    end
-end)
+local KeyBoxFrame = Create("Frame", { Parent = LoginFrame, Size = UDim2.new(0, 250, 0, 35), Position = UDim2.new(0.5, -125, 0, 85), BackgroundColor3 = Theme.Element })
+Create("UICorner", { CornerRadius = UDim.new(0, 6), Parent = KeyBoxFrame })
+local KeyBox = Create("TextBox", { Parent = KeyBoxFrame, Size = UDim2.new(1, -20, 1, 0), Position = UDim2.new(0, 10, 0, 0), BackgroundTransparency = 1, Text = "", PlaceholderText = "Enter Premium Key...", TextColor3 = Theme.Text, Font = Enum.Font.Gotham, TextSize = 14, ClearTextOnFocus = false })
 
--- Login üst dekoratif çizgi (gradient efekti)
-local loginGradBar = Create("Frame", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 3), BackgroundColor3 = Theme.Accent, BorderSizePixel = 0 })
-local loginGrad = Instance.new("UIGradient", loginGradBar)
-loginGrad.Color = ColorSequence.new(Theme.Accent, Theme.Secondary)
-
-local LoginTitle = Create("TextLabel", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 40), Position = UDim2.new(0, 0, 0, 20), BackgroundTransparency = 1, Text = "⚡ VexelHUB PRO", TextColor3 = Theme.Accent, Font = Enum.Font.GothamBold, TextSize = 26 })
-local LoginSub = Create("TextLabel", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 20), Position = UDim2.new(0, 0, 0, 55), BackgroundTransparency = 1, Text = "Premium Authentication v2.0", TextColor3 = Theme.TextDark, Font = Enum.Font.GothamMedium, TextSize = 13 })
-local LoginUser = Create("TextLabel", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 18), Position = UDim2.new(0, 0, 0, 78), BackgroundTransparency = 1, Text = "User: vexelgod", TextColor3 = Theme.Secondary, Font = Enum.Font.GothamSemibold, TextSize = 12 })
-
-local KeyBoxFrame = Create("Frame", { Parent = LoginFrame, Size = UDim2.new(0, 280, 0, 40), Position = UDim2.new(0.5, -140, 0, 110), BackgroundColor3 = Theme.Element, BackgroundTransparency = 0.1 })
-Create("UICorner", { CornerRadius = UDim.new(0, 8), Parent = KeyBoxFrame })
-Create("UIStroke", { Parent = KeyBoxFrame, Color = Theme.Accent, Thickness = 1, Transparency = 0.6 })
-local KeyBox = Create("TextBox", { Parent = KeyBoxFrame, Size = UDim2.new(1, -20, 1, 0), Position = UDim2.new(0, 10, 0, 0), BackgroundTransparency = 1, Text = "", PlaceholderText = "🔑 Enter Premium Key...", TextColor3 = Theme.Text, Font = Enum.Font.GothamMedium, TextSize = 14, ClearTextOnFocus = false })
-
-local LoginBtn = Create("TextButton", { Parent = LoginFrame, Size = UDim2.new(0, 160, 0, 40), Position = UDim2.new(0.5, -80, 0, 170), BackgroundColor3 = Theme.Accent, Text = "🔓 Authenticate", TextColor3 = Theme.Text, Font = Enum.Font.GothamBold, TextSize = 15, AutoButtonColor = false })
-Create("UICorner", { CornerRadius = UDim.new(0, 8), Parent = LoginBtn })
-local loginBtnGrad = Instance.new("UIGradient", LoginBtn)
-loginBtnGrad.Color = ColorSequence.new(Theme.Accent, Color3.fromRGB(100, 20, 180))
-loginBtnGrad.Rotation = 45
-
--- Hata sayacı ve status metni
-local loginAttempts = 0
-local LoginStatus = Create("TextLabel", { Parent = LoginFrame, Size = UDim2.new(1, 0, 0, 18), Position = UDim2.new(0, 0, 0, 220), BackgroundTransparency = 1, Text = "", TextColor3 = Color3.fromRGB(255, 80, 80), Font = Enum.Font.GothamSemibold, TextSize = 12 })
-
-LoginBtn.MouseEnter:Connect(function() Tween(LoginBtn, {BackgroundColor3 = Theme.AccentHover}, 0.2) end)
-LoginBtn.MouseLeave:Connect(function() Tween(LoginBtn, {BackgroundColor3 = Theme.Accent}, 0.2) end)
+local LoginBtn = Create("TextButton", { Parent = LoginFrame, Size = UDim2.new(0, 120, 0, 35), Position = UDim2.new(0.5, -60, 0, 140), BackgroundColor3 = Theme.Accent, Text = "Login", TextColor3 = Theme.Text, Font = Enum.Font.GothamBold, TextSize = 14, AutoButtonColor = false })
+Create("UICorner", { CornerRadius = UDim.new(0, 6), Parent = LoginBtn })
 
 LoginBtn.MouseButton1Click:Connect(function()
     local enteredKey = KeyBox.Text
-    -- ★ Yeni Premium Key: 009953 | Eski key: vexelgod (korundu)
-    if enteredKey == "009953" or enteredKey == "vexelgod" then
-        LoginStatus.Text = "✅ Doğrulandı! Hoşgeldin..."
-        LoginStatus.TextColor3 = Color3.fromRGB(80, 255, 80)
-        -- Blur kaldır, giriş animasyonu
-        Tween(loginBlur, {Size = 0}, 0.6)
-        Tween(LoginFrame, {Size = UDim2.new(0, 0, 0, 0), Position = UDim2.new(0.5, 0, 0.5, 0)}, 0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In)
-        task.wait(0.6)
-        loginBlur:Destroy()
+    if enteredKey == "vexelgod" or enteredKey == "vpoyraz" then
+        Tween(LoginFrame, {Size = UDim2.new(0, 0, 0, 0), Position = UDim2.new(0.5, 0, 0.5, 0)}, 0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In)
+        task.wait(0.4)
         LoginFrame:Destroy()
         MainFrame.Size = UDim2.new(0, 0, 0, 0)
         MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
         MainFrame.Visible = true
-        Tween(MainFrame, {Size = UDim2.new(0, 700, 0, 480), Position = UDim2.new(0.5, -350, 0.5, -240)}, 0.6, Enum.EasingStyle.Bounce)
+        Tween(MainFrame, {Size = UDim2.new(0, 700, 0, 480), Position = UDim2.new(0.5, -350, 0.5, -240)}, 0.5, Enum.EasingStyle.Bounce)
     else
-        -- ★ Yanlış key: Kick() uygula
-        loginAttempts = loginAttempts + 1
-        LoginStatus.Text = "❌ Geçersiz Anahtar! (" .. loginAttempts .. "/3)"
-        Tween(KeyBoxFrame, {BackgroundColor3 = Color3.fromRGB(200, 40, 40)}, 0.15)
-        task.wait(0.3)
-        Tween(KeyBoxFrame, {BackgroundColor3 = Theme.Element}, 0.3)
-        if loginAttempts >= 3 then
-            LoginStatus.Text = "🚫 Erişim Reddedildi! Çıkış yapılıyor..."
-            task.wait(1)
-            LocalPlayer:Kick("❌ VexelHUB PRO: Geçersiz Anahtar! (Invalid Key - Access Denied)")
-        end
+        local old = KeyBoxFrame.BackgroundColor3
+        Tween(KeyBoxFrame, {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}, 0.2)
+        task.wait(1)
+        Tween(KeyBoxFrame, {BackgroundColor3 = old}, 0.2)
     end
 end)
 
@@ -289,11 +231,9 @@ Create("Frame", { Parent = Topbar, Size = UDim2.new(1, 0, 0, 1), Position = UDim
 
 local Title = Create("TextLabel", { Parent = Topbar, Size = UDim2.new(1, -100, 1, 0), Position = UDim2.new(0, 20, 0, 0), BackgroundTransparency = 1, ZIndex = 3, Text = "VexelHUB", TextColor3 = Theme.Accent, TextSize = 22, Font = Enum.Font.GothamBold, TextXAlignment = Enum.TextXAlignment.Left })
 
--- Top-bar gradient accent line
-local topGradBar = Create("Frame", { Parent = Topbar, Size = UDim2.new(1, 0, 0, 2), Position = UDim2.new(0, 0, 0, 0), BackgroundColor3 = Theme.Accent, BorderSizePixel = 0, ZIndex = 5 })
-Instance.new("UIGradient", topGradBar).Color = ColorSequence.new(Theme.Accent, Theme.Secondary)
+-- Removed Visual Effects
 
-local TitleSub = Create("TextLabel", { Parent = Title, Size = UDim2.new(1, 0, 1, 0), Position = UDim2.new(0, 110, 0, 0), BackgroundTransparency = 1, ZIndex = 3, Text = "| PRO  v2.0", TextColor3 = Theme.TextDark, TextSize = 16, Font = Enum.Font.GothamMedium, TextXAlignment = Enum.TextXAlignment.Left })
+local TitleSub = Create("TextLabel", { Parent = Title, Size = UDim2.new(1, 0, 1, 0), Position = UDim2.new(0, 110, 0, 0), BackgroundTransparency = 1, ZIndex = 3, Text = "| PRO  v1", TextColor3 = Theme.TextDark, TextSize = 16, Font = Enum.Font.GothamMedium, TextXAlignment = Enum.TextXAlignment.Left })
 local MinimizeBtn = Create("TextButton", { Parent = Topbar, Size = UDim2.new(0, 30, 0, 30), Position = UDim2.new(1, -40, 0.5, -15), BackgroundColor3 = Theme.Element, Text = "-", TextColor3 = Theme.Text, Font = Enum.Font.GothamBold, TextSize = 20, ZIndex = 4, AutoButtonColor = false })
 Create("UICorner", { CornerRadius = UDim.new(0, 6), Parent = MinimizeBtn })
 
@@ -609,7 +549,6 @@ Library:AddDropdown(PageAim, "Aim Key", {"Right Click", "Left Click", "E", "Q", 
 -- ** 🏃‍♂️ LocalPlayer Page ** 
 -- ==========================================
 Library:AddSection(PagePlayer, "Movement Settings")
-Library:AddToggle(PagePlayer, "Sınırsız Stamina (No Stamina)", function(state) SharedState.NoStamina = state end)
 Library:AddSlider(PagePlayer, "WalkSpeed", 16, 300, 16, function(val) SharedState.WalkSpeed = val end)
 Library:AddSlider(PagePlayer, "JumpPower", 50, 400, 50, function(val) SharedState.JumpPower = val end)
 Library:AddToggle(PagePlayer, "CFrame WalkSpeed (Bypass)", function(state) SharedState.CFrameSpeedActive = state end)
@@ -997,14 +936,10 @@ Library:AddSlider(PageTroll, "Spin Speed", 5, 100, 20, function(v) SharedState.S
 -- ==========================================
 -- ** 👁️ Visuals Page **
 -- ==========================================
-Library:AddSection(PageVis, "ESP Settings (Drawing API)")
+Library:AddSection(PageVis, "ESP Settings")
 Library:AddToggle(PageVis, "Name ESP", function(s) SharedState.ESP.Name = s end)
 Library:AddToggle(PageVis, "Health ESP", function(s) SharedState.ESP.Health = s end)
 Library:AddToggle(PageVis, "Chams ESP", function(s) SharedState.ESP.Chams = s end)
-Library:AddToggle(PageVis, "Box ESP (Drawing API)", function(s) SharedState.ESP.Box = s end)
-Library:AddToggle(PageVis, "Health Bar (Yeşil→Kırmızı)", function(s) SharedState.ESP.HealthBar = s end)
-Library:AddToggle(PageVis, "Distance ESP [150m]", function(s) SharedState.ESP.Distance = s end)
-Library:AddToggle(PageVis, "Skeleton ESP (İskelet)", function(s) SharedState.ESP.Skeleton = s end)
 
 Library:AddSection(PageVis, "Tracers & Camera")
 Library:AddToggle(PageVis, "Player Tracers", function(s) SharedState.Tracers = s end)
@@ -1021,7 +956,7 @@ Library:AddToggle(PageVis, "Infinity Zoom", function(state)
 end)
 
 Library:AddSection(PageVis, "Combat Tools")
-Library:AddToggle(PageVis, "Hitbox & Reach Expander (Player+NPC)", function(s) SharedState.HitboxExpander = s end)
+Library:AddToggle(PageVis, "Hitbox Expander", function(s) SharedState.HitboxExpander = s end)
 Library:AddSlider(PageVis, "Hitbox Size", 2, 50, 5, function(v) SharedState.HitboxSize = v end)
 
 -- ==========================================
@@ -1241,7 +1176,7 @@ Library:AddSection(PageUtil, "Environment")
 Library:AddSlider(PageUtil, "Time Changer", 0, 24, 14, function(v) Lighting.ClockTime = v end)
 
 -- ==========================================
--- ** � Auto-Piano **
+-- **   Auto-Piano **
 -- ==========================================
 Library:AddSection(PageUtil, "Auto-Piano")
 local pFrame = Create("Frame", { Parent = PageUtil, Size = UDim2.new(1, 0, 0, 110), BackgroundColor3 = Theme.Element })
@@ -1773,24 +1708,6 @@ local function GetInspectorText()
     return InspectorGui:FindFirstChildOfClass("Frame"), InspectorLabel
 end
 
-local CachedNPCs = {}
-task.spawn(function()
-    while true do
-        task.wait(2)
-        if SharedState.HitboxExpander then
-            local npcs = {}
-            for _, v in pairs(Workspace:GetDescendants()) do
-                if v:IsA("Model") and v ~= LocalPlayer.Character and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and not Players:GetPlayerFromCharacter(v) then
-                    table.insert(npcs, v)
-                end
-            end
-            CachedNPCs = npcs
-        else
-            CachedNPCs = {}
-        end
-    end
-end)
-
 local CurrentAimTarget = nil
 
 local function IsTargetValid(t)
@@ -1855,55 +1772,6 @@ RunService.RenderStepped:Connect(function(dt)
         end
     end
     
-    -- ★ Adaptive Stamina Bypass (Akıllı Otomatik Tarama)
-    -- Character, PlayerGui, Humanoid Attributes ve ModuleScript'leri tarar
-    if SharedState.NoStamina and hum then
-        -- 1. Character içi ValueBase taraması (Stamina, Energy, Sprint, Endurance)
-        local staminaKeywords = {"stamina", "energy", "sprint", "endurance", "tired", "fatigue", "dash"}
-        local function isStaminaName(name)
-            local lower = string.lower(name)
-            for _, kw in ipairs(staminaKeywords) do
-                if string.find(lower, kw) then return true end
-            end
-            return false
-        end
-        local function fillStamina(obj)
-            if obj:IsA("ValueBase") and isStaminaName(obj.Name) then
-                pcall(function()
-                    if obj:IsA("NumberValue") or obj:IsA("IntValue") then obj.Value = 9e9 end
-                    if obj:IsA("BoolValue") then obj.Value = false end -- "Tired" gibi bool değerler
-                end)
-            end
-        end
-        -- Character içi tarama
-        if char then for _, v in pairs(char:GetDescendants()) do fillStamina(v) end end
-        -- 2. PlayerGui içi tarama (bazı oyunlar stamina'yı GUI'de tutar)
-        pcall(function()
-            local pg = LocalPlayer:FindFirstChild("PlayerGui")
-            if pg then for _, v in pairs(pg:GetDescendants()) do fillStamina(v) end end
-        end)
-        -- 3. Humanoid Attributes taraması
-        local humAttributes = hum:GetAttributes()
-        for k, val in pairs(humAttributes) do
-            if isStaminaName(k) then
-                pcall(function()
-                    if type(val) == "number" then hum:SetAttribute(k, 100) end
-                    if type(val) == "boolean" then hum:SetAttribute(k, false) end
-                end)
-            end
-        end
-        -- 4. Character Attributes taraması
-        if char then
-            for k, val in pairs(char:GetAttributes()) do
-                if isStaminaName(k) then
-                    pcall(function()
-                        if type(val) == "number" then char:SetAttribute(k, 100) end
-                    end)
-                end
-            end
-        end
-    end
-
     -- Aimbot FOV Circle Update
     if SharedState.ShowFOV then
         FOVCircle.Position = UserInputService:GetMouseLocation()
@@ -1981,18 +1849,9 @@ RunService.RenderStepped:Connect(function(dt)
             
             if SharedState.HitboxExpander then
                 tHrp.Size = Vector3.new(SharedState.HitboxSize, SharedState.HitboxSize, SharedState.HitboxSize)
-                tHrp.Transparency = 0.8
-                tHrp.BrickColor = BrickColor.new("Really red")
-                tHrp.Material = Enum.Material.Neon
-                tHrp.CanCollide = false
-                tHrp.Massless = true
-                tHrp.RootPriority = 0
-            elseif tHrp.Size.X ~= 2 then
-                tHrp.Size = Vector3.new(2,2,1)
-                tHrp.Transparency = 1
-                tHrp.CanCollide = false
-                tHrp.Massless = true
-                tHrp.RootPriority = 0
+                tHrp.Transparency = 0.5; tHrp.CanCollide = false; tHrp.Massless = true; tHrp.RootPriority = 0
+            elseif tHrp.Size.X > 2 then
+                tHrp.Size = Vector3.new(2,2,1); tHrp.Transparency = 1; tHrp.CanCollide = true; tHrp.Massless = false; tHrp.RootPriority = 0
             end
         else
             -- Target Invalid, Clean ESP
@@ -2004,35 +1863,6 @@ RunService.RenderStepped:Connect(function(dt)
         end
     end
     
-    -- Hitbox & Reach Expander loop for NPCs
-    if SharedState.HitboxExpander then
-        for _, npc in ipairs(CachedNPCs) do
-            if npc and npc.Parent and npc:FindFirstChild("HumanoidRootPart") and npc:FindFirstChild("Humanoid") and npc.Humanoid.Health > 0 then
-                local nHrp = npc.HumanoidRootPart
-                nHrp.Size = Vector3.new(SharedState.HitboxSize, SharedState.HitboxSize, SharedState.HitboxSize)
-                nHrp.Transparency = 0.8
-                nHrp.BrickColor = BrickColor.new("Really red")
-                nHrp.Material = Enum.Material.Neon
-                nHrp.CanCollide = false
-                nHrp.Massless = true
-                nHrp.RootPriority = 0
-            end
-        end
-    else
-        for _, npc in ipairs(CachedNPCs) do
-            if npc and npc.Parent and npc:FindFirstChild("HumanoidRootPart") then
-                local nHrp = npc.HumanoidRootPart
-                if nHrp.Size.X ~= 2 then
-                    nHrp.Size = Vector3.new(2,2,1)
-                    nHrp.Transparency = 1
-                    nHrp.CanCollide = false
-                    nHrp.Massless = true
-                    nHrp.RootPriority = 0
-                end
-            end
-        end
-    end
-
     if SharedState.Aimbot then
         if IsAimKeyDown() then
             if not CurrentAimTarget or not IsTargetValid(CurrentAimTarget) then CurrentAimTarget = closest end
@@ -2182,7 +2012,7 @@ RunService.RenderStepped:Connect(function(dt)
             if p ~= LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
                 local v, onS = Camera:WorldToViewportPoint(p.Character.HumanoidRootPart.Position)
                 if onS then
-                    if not Tracers[p] then Tracers[p] = Drawing.new("Line"); Tracers[p].Thickness=1.5; Tracers[p].Color=Theme.Accent; table.insert(_allDrawings, Tracers[p]) end
+                    if not Tracers[p] then Tracers[p] = Drawing.new("Line"); Tracers[p].Thickness=1.5; Tracers[p].Color=Theme.Accent end
                     Tracers[p].Visible = true
                     Tracers[p].From = SharedState.TracerOrigin == "Bottom" and Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y) or Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
                     Tracers[p].To = Vector2.new(v.X, v.Y)
@@ -2191,137 +2021,6 @@ RunService.RenderStepped:Connect(function(dt)
         end
     else
         for _,t in pairs(Tracers) do t.Visible = false end
-    end
-    
-    -- ★ Drawing API ESP System (Box, HealthBar, Skeleton, Distance)
-    for _, p in pairs(Players:GetPlayers()) do
-        if p ~= LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") and p.Character:FindFirstChild("Humanoid") then
-            local tChar = p.Character
-            local tHrp = tChar.HumanoidRootPart
-            local tHum = tChar.Humanoid
-            local v3, onScreen = Camera:WorldToViewportPoint(tHrp.Position)
-            
-            if not _espCache[p] then _espCache[p] = {} end
-            local cache = _espCache[p]
-            
-            if onScreen and tHum.Health > 0 then
-                -- Karakter boyutunu ekran pikselinde hesapla
-                local topPos = Camera:WorldToViewportPoint((tHrp.CFrame * CFrame.new(0, 3, 0)).Position)
-                local btmPos = Camera:WorldToViewportPoint((tHrp.CFrame * CFrame.new(0, -3, 0)).Position)
-                local height = math.abs(topPos.Y - btmPos.Y)
-                local width = height * 0.6
-                local cx, cy = v3.X, v3.Y
-                
-                -- Box ESP
-                if SharedState.ESP.Box then
-                    if not cache.box then
-                        cache.box = Drawing.new("Square")
-                        cache.box.Thickness = 1.5; cache.box.Filled = false
-                        cache.box.Color = Theme.Accent; cache.box.Transparency = 0.8
-                    end
-                    cache.box.Size = Vector2.new(width, height)
-                    cache.box.Position = Vector2.new(cx - width/2, cy - height/2)
-                    cache.box.Visible = true
-                elseif cache.box then cache.box.Visible = false end
-                
-                -- Health Bar (Dikey, yeşil→kırmızı)
-                if SharedState.ESP.HealthBar then
-                    if not cache.hpBg then
-                        cache.hpBg = Drawing.new("Line")
-                        cache.hpBg.Thickness = 4; cache.hpBg.Color = Color3.fromRGB(40, 40, 40)
-                        cache.hp = Drawing.new("Line")
-                        cache.hp.Thickness = 2
-                    end
-                    local barX = cx - width/2 - 6
-                    local barTop = cy - height/2
-                    local barBot = cy + height/2
-                    cache.hpBg.From = Vector2.new(barX, barTop)
-                    cache.hpBg.To = Vector2.new(barX, barBot)
-                    cache.hpBg.Visible = true
-                    
-                    local hpPct = math.clamp(tHum.Health / tHum.MaxHealth, 0, 1)
-                    local fillBot = barBot - (height * hpPct)
-                    -- Renk: Yeşil (100%) → Sarı (50%) → Kırmızı (0%)
-                    local r = hpPct < 0.5 and 255 or math.floor(255 - (hpPct - 0.5) * 2 * 255)
-                    local g = hpPct > 0.5 and 255 or math.floor(hpPct * 2 * 255)
-                    cache.hp.Color = Color3.fromRGB(r, g, 0)
-                    cache.hp.From = Vector2.new(barX, barBot)
-                    cache.hp.To = Vector2.new(barX, fillBot)
-                    cache.hp.Visible = true
-                elseif cache.hpBg then cache.hpBg.Visible = false; cache.hp.Visible = false end
-                
-                -- Distance + Name (Drawing API Text)
-                if SharedState.ESP.Distance or SharedState.ESP.Name then
-                    if not cache.nameText then
-                        cache.nameText = Drawing.new("Text")
-                        cache.nameText.Size = 13; cache.nameText.Center = true
-                        cache.nameText.Outline = true; cache.nameText.OutlineColor = Color3.new(0, 0, 0)
-                        cache.nameText.Font = 2 -- UI font
-                    end
-                    local txt = ""
-                    if SharedState.ESP.Name then txt = p.DisplayName end
-                    if SharedState.ESP.Distance and hrp then
-                        local dist = math.floor((hrp.Position - tHrp.Position).Magnitude)
-                        txt = txt .. (txt ~= "" and " " or "") .. "[" .. dist .. "m]"
-                    end
-                    cache.nameText.Text = txt
-                    cache.nameText.Position = Vector2.new(cx, cy - height/2 - 16)
-                    cache.nameText.Color = Theme.Secondary
-                    cache.nameText.Visible = true
-                elseif cache.nameText then cache.nameText.Visible = false end
-                
-                -- Skeleton ESP (İskelet çizgileri)
-                if SharedState.ESP.Skeleton then
-                    if not cache.skeleton then cache.skeleton = {} end
-                    local joints = {
-                        {"Head", "UpperTorso"}, {"UpperTorso", "LowerTorso"},
-                        {"UpperTorso", "LeftUpperArm"}, {"LeftUpperArm", "LeftLowerArm"}, {"LeftLowerArm", "LeftHand"},
-                        {"UpperTorso", "RightUpperArm"}, {"RightUpperArm", "RightLowerArm"}, {"RightLowerArm", "RightHand"},
-                        {"LowerTorso", "LeftUpperLeg"}, {"LeftUpperLeg", "LeftLowerLeg"}, {"LeftLowerLeg", "LeftFoot"},
-                        {"LowerTorso", "RightUpperLeg"}, {"RightUpperLeg", "RightLowerLeg"}, {"RightLowerLeg", "RightFoot"}
-                    }
-                    -- R6 fallback
-                    if not tChar:FindFirstChild("UpperTorso") then
-                        joints = {
-                            {"Head", "Torso"}, {"Torso", "Left Arm"}, {"Torso", "Right Arm"},
-                            {"Torso", "Left Leg"}, {"Torso", "Right Leg"}
-                        }
-                    end
-                    for i, pair in ipairs(joints) do
-                        local p0 = tChar:FindFirstChild(pair[1])
-                        local p1 = tChar:FindFirstChild(pair[2])
-                        if not cache.skeleton[i] then
-                            cache.skeleton[i] = Drawing.new("Line")
-                            cache.skeleton[i].Thickness = 1.5
-                            cache.skeleton[i].Color = Theme.Secondary
-                        end
-                        if p0 and p1 then
-                            local s0, os0 = Camera:WorldToViewportPoint(p0.Position)
-                            local s1, os1 = Camera:WorldToViewportPoint(p1.Position)
-                            if os0 and os1 then
-                                cache.skeleton[i].From = Vector2.new(s0.X, s0.Y)
-                                cache.skeleton[i].To = Vector2.new(s1.X, s1.Y)
-                                cache.skeleton[i].Visible = true
-                            else cache.skeleton[i].Visible = false end
-                        else cache.skeleton[i].Visible = false end
-                    end
-                elseif cache.skeleton then
-                    for _, line in pairs(cache.skeleton) do line.Visible = false end
-                end
-            else
-                -- Ekranda değil veya ölü: tüm Drawing objelerini gizle
-                if cache.box then cache.box.Visible = false end
-                if cache.hpBg then cache.hpBg.Visible = false; cache.hp.Visible = false end
-                if cache.nameText then cache.nameText.Visible = false end
-                if cache.skeleton then for _, l in pairs(cache.skeleton) do l.Visible = false end end
-            end
-        elseif _espCache[p] then
-            local cache = _espCache[p]
-            if cache.box then cache.box.Visible = false end
-            if cache.hpBg then cache.hpBg.Visible = false; cache.hp.Visible = false end
-            if cache.nameText then cache.nameText.Visible = false end
-            if cache.skeleton then for _, l in pairs(cache.skeleton) do l.Visible = false end end
-        end
     end
 end)
 
@@ -2354,7 +2053,7 @@ UserInputService.JumpRequest:Connect(function()
     end
 end)
 
--- ★ Adaptive Stamina __namecall Bypass (Genişletilmiş Keyword Listesi)
+-- Remote Event Sniffer Hook
 local function setupSniffer()
     local oldNamecall
     oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
@@ -2362,26 +2061,6 @@ local function setupSniffer()
         local args = {...}
         
         if not checkcaller() then
-            -- Adaptive Stamina Bypass: genişletilmiş keyword taraması
-            if SharedState.NoStamina and (method == "FireServer" or method == "fireServer") then
-                local remoteName = self.Name:lower()
-                local blockedKeywords = {"stamina", "energy", "dash", "sprint", "endurance", "tired", "fatigue", "run"}
-                for _, kw in ipairs(blockedKeywords) do
-                    if remoteName:find(kw) then
-                        return -- Engellendi: stamina korunuyor
-                    end
-                end
-                -- Args içeriğini de kontrol et
-                for _, arg in pairs(args) do
-                    if type(arg) == "string" then
-                        local lowerArg = arg:lower()
-                        for _, kw in ipairs(blockedKeywords) do
-                            if lowerArg:find(kw) then return end
-                        end
-                    end
-                end
-            end
-
             -- Remote Sniffer Logic
             if SharedState.RemoteSniffer then
                 if method == "FireServer" or method == "fireServer" or method == "InvokeServer" or method == "invokeServer" then
@@ -2399,57 +2078,4 @@ local function setupSniffer()
 end
 pcall(setupSniffer)
 
--- ★ Global Cleanup Fonksiyonu (Script kapatıldığında her şeyi geri al)
-local function VexelCleanup()
-    -- 1. Tüm Drawing nesnelerini temizle
-    for _, obj in pairs(_allDrawings) do pcall(function() obj:Remove() end) end
-    for _, cache in pairs(_espCache) do
-        for _, obj in pairs(cache) do pcall(function() obj:Remove() end) end
-    end
-    table.clear(_allDrawings)
-    table.clear(_espCache)
-    -- 2. Tüm bağlantıları kes
-    for _, conn in pairs(_allConnections) do pcall(function() conn:Disconnect() end) end
-    table.clear(_allConnections)
-    -- 3. Hitbox boyutlarını orijinaline döndür
-    for _, p in pairs(Players:GetPlayers()) do
-        if p ~= LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-            local hrp = p.Character.HumanoidRootPart
-            pcall(function()
-                hrp.Size = Vector3.new(2, 2, 1)
-                hrp.Transparency = 1
-                hrp.CanCollide = false
-                hrp.Massless = true
-            end)
-        end
-    end
-    -- 4. ESP BillboardGui'leri temizle
-    for _, p in pairs(Players:GetPlayers()) do
-        if p.Character then
-            local hl = p.Character:FindFirstChild("VESPBox"); if hl then hl:Destroy() end
-            local hrp = p.Character:FindFirstChild("HumanoidRootPart")
-            if hrp then
-                local bg = hrp:FindFirstChild("VESPText"); if bg then bg:Destroy() end
-            end
-        end
-    end
-    -- 5. FOV Circle temizle
-    pcall(function() FOVCircle:Remove() end)
-    -- 6. Tüm GUI'leri temizle
-    pcall(function() VexelGui:Destroy() end)
-    pcall(function() NotifGui:Destroy() end)
-    pcall(function() HUDGui:Destroy() end)
-    pcall(function() if InspectorGui then InspectorGui:Destroy() end end)
-    -- 7. Kamera'yı sıfırla
-    pcall(function()
-        Camera.CameraType = Enum.CameraType.Custom
-        if LocalPlayer.Character then
-            Camera.CameraSubject = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-        end
-    end)
-end
-
--- Cleanup'ı global erişime aç (dışarıdan çağırılabilir)
-getgenv().VexelCleanup = VexelCleanup
-
-Notify("⚡ VexelHUB PRO v2.0 Premium Loaded!", 5)
+Notify("VexelHUB PRO Final Loaded!", 5)
